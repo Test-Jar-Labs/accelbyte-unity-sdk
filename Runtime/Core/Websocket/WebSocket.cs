@@ -227,10 +227,17 @@ namespace HybridWebSocket
             }
         }
 
-        public void Connect(string url, string protocols, string sessionId)
+        public void Connect(string url, string protocols, string sessionId, string entitlementToken = null)
         {
             this.objectId = JslibInterop.WsCreate(url, protocols);
             JslibInterop.WsOpen(this.objectId.Value);
+        }
+
+        public void Connect(string url, string protocols, Dictionary<string, string> customHeaders,
+            string entitlementToken = null)
+        {
+            // TODO: Implementation, should have accelbyte have a pass on this
+            Connect(url, protocols, "", entitlementToken);
         }
 
         public void Close(WsCloseCode code = WsCloseCode.Normal, string reason = null)
