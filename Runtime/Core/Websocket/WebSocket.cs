@@ -240,6 +240,11 @@ namespace HybridWebSocket
             Connect(url, protocols, "", entitlementToken);
         }
 
+        public void SetProxy(string url, string username, string password)
+        {
+            // TODO: Implementation, should probably have accelbyte have a pass on this
+        }
+
         public void Close(WsCloseCode code = WsCloseCode.Normal, string reason = null)
         {
             if (this.objectId.HasValue)
