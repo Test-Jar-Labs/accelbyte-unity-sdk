@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using AccelByte.Core;
 #if !UNITY_WEBGL || UNITY_EDITOR
 using WebSocketSharp;
+#else
+using AOT;
+using System.Runtime.InteropServices;
 #endif
 
 namespace HybridWebSocket
