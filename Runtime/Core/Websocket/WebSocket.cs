@@ -6,11 +6,11 @@
 using System;
 using System.Collections.Generic;
 using AccelByte.Core;
-#if !UNITY_WEBGL || UNITY_EDITOR
-using WebSocketSharp;
-#else
+#if UNITY_WEBGL && !UNITY_EDITOR
 using AOT;
 using System.Runtime.InteropServices;
+#else
+using WebSocketSharp;
 #endif
 
 namespace HybridWebSocket
@@ -229,15 +229,25 @@ namespace HybridWebSocket
 
         public void Connect(string url, string protocols, string sessionId, string entitlementToken = null)
         {
-            this.objectId = JslibInterop.WsCreate(url, protocols);
-            JslibInterop.WsOpen(this.objectId.Value);
+            // TODO: Should probably have accelbyte do a pass on this.
+            Dictionary<string, string> customHeader = new Dictionary<string, string>()
+            {
+                { "X-Ab-LobbySessionID", sessionId }
+            };
+            
+            if (entitlementToken != null)
+            {
+                customHeader.Add("Entitlement", entitlementToken);
+            }
+            Connect(url, protocols, customHeader, entitlementToken);
         }
 
         public void Connect(string url, string protocols, Dictionary<string, string> customHeaders,
             string entitlementToken = null)
         {
             // TODO: Implementation, should have accelbyte have a pass on this
-            Connect(url, protocols, "", entitlementToken);
+            this.objectId = JslibInterop.WsCreate(url, protocols);
+            JslibInterop.WsOpen(this.objectId.Value);
         }
 
         public void SetProxy(string url, string username, string password)
