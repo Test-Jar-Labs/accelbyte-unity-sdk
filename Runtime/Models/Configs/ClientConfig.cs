@@ -501,12 +501,7 @@ namespace AccelByte.Models
         [DataMember] public string Version { get; set; }
 
         // Used to fix the Unable to find a constructor NewtonSoftJson error
-        public VersionJson() : this(string.Empty) { }
-        
-        // Used to fix the 'Unable to find a constructor NewtonSoftJson error
-        public VersionJson(string inVersion)
-        {
-            Version = inVersion;
-        }
+        [Preserve]
+        public VersionJson() { }
     }
 }
