@@ -495,12 +495,17 @@ namespace AccelByte.Models
         }
     }
 
+    /// <summary>
+    /// Version Json class. Needs to have the [Preserve] attribute to prevent
+    /// byte stripping of names, etc...
+    /// </summary>
     [DataContract]
     public class VersionJson
     {
-        [DataMember] public string Version { get; set; }
+        [Preserve]
+        [DataMember] 
+        public string Version { get; set; }
 
-        // Used to fix the Unable to find a constructor NewtonSoftJson error
         [Preserve]
         public VersionJson() { }
     }
