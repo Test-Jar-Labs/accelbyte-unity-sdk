@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using AccelByte.Api;
 using AccelByte.Core;
+using UnityEngine.Scripting;
 
 namespace AccelByte.Models
 {
@@ -498,5 +499,14 @@ namespace AccelByte.Models
     public class VersionJson
     {
         [DataMember] public string Version { get; set; }
+
+        // Used to fix the Unable to find a constructor NewtonSoftJson error
+        public VersionJson() : this(string.Empty) { }
+        
+        // Used to fix the 'Unable to find a constructor NewtonSoftJson error
+        public VersionJson(string inVersion)
+        {
+            Version = inVersion;
+        }
     }
 }
