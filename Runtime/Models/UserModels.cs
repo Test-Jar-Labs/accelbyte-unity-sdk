@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json.Utilities;
+using UnityEngine;
 
 namespace AccelByte.Models
 {
@@ -48,6 +50,32 @@ namespace AccelByte.Models
     [DataContract]
     public class TokenData
     {
+        /// <summary>
+        /// Ensures the compilation of the token data so that the
+        /// class isn't stripped of some variables.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod]
+        private static void EnsureCompilation()
+        {
+            // Ensures that the compilation for each
+            // variable is done.
+            AotHelper.Ensure(() =>
+            {
+                var tokenData = new TokenData();
+                tokenData.access_token = "";
+                tokenData.auth_trust_id = "";
+                tokenData.refresh_expires_in = "";
+                tokenData.expires_in = 0;
+                tokenData.user_id = "";
+                tokenData.display_name = "";
+                tokenData.Namespace = "";
+                tokenData.token_type = "";
+                tokenData.is_comply = true;
+                tokenData.platform_id = "";
+                tokenData.platform_user_id = "";
+            });
+        }
+        
         [DataMember] public string access_token { get; set; }
         [DataMember] public string auth_trust_id { get; set; }
         [DataMember] public string refresh_token { get; set; }
