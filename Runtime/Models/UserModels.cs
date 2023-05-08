@@ -64,7 +64,7 @@ namespace AccelByte.Models
                 var tokenData = new TokenData();
                 tokenData.access_token = "";
                 tokenData.auth_trust_id = "";
-                tokenData.refresh_expires_in = "";
+                tokenData.refresh_expires_in = 0;
                 tokenData.expires_in = 0;
                 tokenData.user_id = "";
                 tokenData.display_name = "";
